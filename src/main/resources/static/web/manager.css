@@ -1,0 +1,60 @@
+/* Webpixels CSS */
+/* Utility and component-centric Design System based on Bootstrap for fast, responsive UI development */
+/* URL: https://github.com/webpixels/css */
+
+@import url(https://unpkg.com/@webpixels/css@1.1.5/dist/index.css);
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+/* Bootstrap Icons */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css");
+
+
+.btn-primary {
+    background-color:  #655CC9;
+}
+
+#logo {
+    height: 65px;
+    color: black;
+}
+
+#piggylogo {
+    height: 150px;
+}
+
+#logo2 {
+    height: 50px;
+}
+
+.bg-surface-primary, .navbar, .h-screen, .py-6 {
+    background-color: #202225 !important;
+}
+
+h1, h4 {
+    color: white !important;
+}
+
+.nav-item > a, .nav-link {
+    color: #655CC9 !important;
+}
+
+.nav-link > i {
+    color: white !important;
+}
+
+.nav-item a:hover, .nav-item a:hover .bi { 
+    color: black !important; 
+}
+
+.menu a:hover {
+    color: white !important;
+}
+
+.h2 {
+    font-family: 'Poppins', sans-serif;
+}
+
+.cardbg {
+    background-color: #F5F5DC;
+    border-radius: 10px;
+}

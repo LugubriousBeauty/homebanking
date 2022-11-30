@@ -16,11 +16,11 @@ createApp({
     },
     methods: {
         loadData() {
-            axios.get('http://localhost:8080/clients')
+            axios.get('http://localhost:8080/api/clients')
                 .then(response => {
                     console.log(response)
                     this.data = response.data;
-                    this.clients = response.data._embedded.clients;
+                    this.clients = response.data;
                 })
                 .catch(error => console.log(error))
         },
@@ -72,7 +72,7 @@ createApp({
                     '',
                     'success'
                 )
-                axios.put(`http://localhost:8080/clients/${id}`, client)
+                axios.put(`http://localhost:8080/api/clients/${id}`, client)
                     .then(response => this.loadData())
             } else if (!formValues[0] || !formValues[1] || !formValues[2]) {
                 Swal.fire({
@@ -104,7 +104,7 @@ createApp({
                 let id = client._links.client.href.substring(idIndex + 1);
                 let aux = {};
             const update = () => {
-                axios.patch(`http://localhost:8080/clients/${id}`, aux)
+                axios.patch(`http://localhost:8080/api/clients/${id}`, aux)
                     .then(response => this.loadData())
                     .catch(err => console.log(err))
             }

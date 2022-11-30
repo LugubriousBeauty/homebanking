@@ -11,8 +11,13 @@ import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
+//Escucha y responde las peticiones (requests) del cliente. Maneja las direcciones de las URL
+
+//MC -> Arquitectura modelo controlador -> "devuelve" html
+//Rest controller -> devuelve JSON o XML
+
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api") /**/
 public class AccountController {
 
     @Autowired
