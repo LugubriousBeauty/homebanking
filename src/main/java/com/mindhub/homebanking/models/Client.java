@@ -11,7 +11,7 @@ public class Client {
     @Id //indica que la propiedad de abajito es la clave primaria (primary key). Cada objeto debe de tener una primary key UNICA
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native") //esa primary key es generada por la DB y se lo indicamos con esta notacion
     @GenericGenerator(name = "native", strategy = "native") //se usa para denotar un generador especifico (cómo se va a generar). Es una anotacion de hybernate
-    private long id;
+    private Long id;
     private String firstName, lastName, email;
     @OneToMany(mappedBy="client", fetch=FetchType.EAGER) /*especificamos la relacion entre objetos (en este caso uno a muchos). El
     mapped by sirve para aclarar con qué atributo de la otra clase tenemos asociada esta clase
@@ -25,9 +25,7 @@ public class Client {
         this.email = email;
     }
 
-    public long getId() { return this.id; }
-
-    public void setId(long id) { this.id = id; }
+    public Long getId() { return id; }
 
     public String getFirstName() {
         return firstName;

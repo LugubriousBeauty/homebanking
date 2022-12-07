@@ -4,16 +4,21 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
-    private long id;
-    String number;
-    LocalDateTime creationDate;
-    double balance;
+    private Long id;
+    private String number;
+    private LocalDateTime creationDate;
+    private Double balance;
+
+    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
+    private Set<Transaction> transactions = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="client_id") //cambiar el nombre de la columna que contiene la clave unica
@@ -21,13 +26,13 @@ public class Account {
 
     public Account() {}
 
-    public Account(String number, LocalDateTime creationDate, double balance) {
+    public Account(String number, LocalDateTime creationDate, Double balance) {
         this.number = number;
         this.creationDate = creationDate;
         this.balance = balance;
     }
 
-    public long getId() { return this.id; }
+    public Long getId() { return id; }
 
     public String getNumber() {
         return number;
@@ -45,11 +50,11 @@ public class Account {
         this.creationDate = creationDate;
     }
 
-    public double getBalance() {
+    public Double getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(Double balance) {
         this.balance = balance;
     }
 
@@ -59,5 +64,12 @@ public class Account {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public Set<Transaction> getTransactions() { return transactions; }
+
+    public void addTransaction(Transaction transaction) {
+        transaction.setAccount(this);
+        transactions.add(transaction);
     }
 }

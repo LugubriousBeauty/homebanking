@@ -84,6 +84,11 @@ body {
     border-radius: 10px;
 }
 
+.bg-surface-primary {
+    align-items: center;
+    height: 15vh;
+}
+
 .navbar {
     background-color: #F28F8F!important;
     border-right: none !important;
@@ -143,6 +148,23 @@ footer {
     animation-duration: 0.5s;
 }
 
+tr {
+    background-color: #F7BABA;
+}
+
+h3 {
+    color: white;
+}
+
+th {
+    color: black !important;
+    font-weight: bold !important;
+}
+
+td {
+    color: black !important;
+}
+
 @media (max-width: 352px) {
     .h3 {
         font-size: .8rem !important;
@@ -151,6 +173,19 @@ footer {
         font-size: .7rem !important;
     }
 }
+
+@media (min-width: 780px) {
+    td, th {
+        font-size: 1rem !important;
+    }
+}
+
+@media (min-width: 1440px) {
+    td, th {
+        font-size: 1.5rem !important;
+    }
+}
+
 
 
 

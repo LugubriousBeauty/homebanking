@@ -20,7 +20,7 @@ createApp({
                 .then(response => {
                     console.log(response)
                     this.data = response.data;
-                    this.clients = response.data;
+                    this.clients = response.data;   
                 })
                 .catch(error => console.log(error))
         },
@@ -33,17 +33,24 @@ createApp({
             }
         },
         deleteClient(client) {
-            let idIndex = client._links.client.href.lastIndexOf("/");
-            console.log(client._links.client.href);
-            console.log(idIndex);
-            let id = client._links.client.href.substring(idIndex + 1);
+            let id = client.id;
             console.log(id)
-            axios.delete(`http://localhost:8080/clients/${id}`)
-                .then(data => this.loadData())
+
+            if (client.accounts.length) {
+                client.accounts.forEach(account => {
+                    let accountid = account.id;
+                    axios.delete(`http://localhost:8080/rest/accounts/${accountid}`)
+                        .then(response => this.loadData())
+                        .catch(err => console.log('No se pudo borrar la cuenta'))
+                })
+            }  
+            axios.delete(`http://localhost:8080/rest/clients/${id}`)
+                .then(data => this.loadData()) 
+                .catch(err => console.log('no se pudo borrar el cliente')) 
         },
         postClient(client) {
             console.log(this.client)
-            axios.post('http://localhost:8080/clients', client)
+            axios.post('http://localhost:8080/rest/clients/')
                 .then(data => this.loadData())
         },
         async modifyClient(client) {
@@ -64,16 +71,21 @@ createApp({
               })
               
             if (formValues[0] && formValues[1] && formValues[2].includes('@') && formValues[2].includes('.')) {
-                let idIndex = client._links.client.href.lastIndexOf("/");
-                let id = client._links.client.href.substring(idIndex + 1);
-                client = {firstName: formValues[0], lastName: formValues[1], email: formValues[2]}
+                console.log(client)
+                let id = client.id;
+                console.log(id)
+                client = { firstName: formValues[0], lastName: formValues[1], email: formValues[2] }
+                
                 Swal.fire(
                     'The client has been modified succesfully',
                     '',
                     'success'
                 )
-                axios.put(`http://localhost:8080/api/clients/${id}`, client)
-                    .then(response => this.loadData())
+                axios.put(`http://localhost:8080/rest/clients/${id}`, client)
+                    .then(response => {
+                        console.log(client);
+                        this.loadData();
+                    })
             } else if (!formValues[0] || !formValues[1] || !formValues[2]) {
                 Swal.fire({
                     icon: 'error',
@@ -100,11 +112,10 @@ createApp({
                   ]
                 }
             })
-            let idIndex = client._links.client.href.lastIndexOf("/");
-                let id = client._links.client.href.substring(idIndex + 1);
+            let id = client.id;
                 let aux = {};
             const update = () => {
-                axios.patch(`http://localhost:8080/api/clients/${id}`, aux)
+                axios.patch(`http://localhost:8080/rest/clients/${id}`, aux)
                     .then(response => this.loadData())
                     .catch(err => console.log(err))
             }
