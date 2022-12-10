@@ -78,6 +78,7 @@ body {
 
 .cardbg {
     background-color: #f28f8f9e;
+    min-height: 10rem;
     box-shadow: 10px 10px rgba(0, 0, 0, 0.784);
     /* background-color: #f28f8f69; */
     border-radius: 10px;
@@ -144,7 +145,7 @@ footer {
 
 @media (max-width: 352px) {
     .h3 {
-        font-size: .8rem !important;
+        font-size: 1rem !important;
     }
     .h6 {
         font-size: .7rem !important;
