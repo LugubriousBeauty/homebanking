@@ -4,7 +4,8 @@ createApp({
     data() {
         return {
             client: {},
-            accounts: []
+            accounts: [],
+            eyeClicked: true
         }
     },
     created() {
@@ -17,6 +18,8 @@ createApp({
         .catch(err => console.log(err))
     },
     methods: {
-
+        changeEyeStat(){
+            this.eyeClicked = !this.eyeClicked;
+        }
     }
 }).mount('#app')

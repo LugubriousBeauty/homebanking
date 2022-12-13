@@ -21,7 +21,7 @@ public class Account {
     private Set<Transaction> transactions = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="client_id") //cambiar el nombre de la columna que contiene la clave unica
+    @JoinColumn(name="client_id")
     private Client client;
 
     public Account() {}

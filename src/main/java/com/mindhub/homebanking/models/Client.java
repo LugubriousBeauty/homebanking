@@ -3,7 +3,9 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Entity //crea una tabla en la DB (en este caso de cliente)
@@ -13,6 +15,9 @@ public class Client {
     @GenericGenerator(name = "native", strategy = "native") //se usa para denotar un generador especifico (cómo se va a generar). Es una anotacion de hybernate
     private Long id;
     private String firstName, lastName, email;
+
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    private Set<ClientLoan> clientLoans = new HashSet<>();
     @OneToMany(mappedBy="client", fetch=FetchType.EAGER) /*especificamos la relacion entre objetos (en este caso uno a muchos). El
     mapped by sirve para aclarar con qué atributo de la otra clase tenemos asociada esta clase
     con el fetch type eager aclaramos que queremos cargar las cuentas de nuestro cliente cuando cargamos al mismo, es decir, simultaneamente*/
@@ -56,5 +61,18 @@ public class Client {
     public void addAccount(Account account) {
         account.setClient(this);
         accounts.add(account);
+    }
+
+    public List<Loan> getLoans() {
+        return clientLoans.stream().map(clientLoan ->  clientLoan.getLoan()).collect(Collectors.toList());
+    }
+
+    public Set<ClientLoan> getClientLoans() {
+        return clientLoans;
+    }
+
+    public void addClientLoan(ClientLoan client) {
+        clientLoans.add(client);
+        client.setClient(this);
     }
 }

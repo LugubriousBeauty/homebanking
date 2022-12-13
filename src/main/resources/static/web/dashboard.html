@@ -123,12 +123,16 @@
                         <div class="card shadow border-0" >
                             <div data-aos="zoom-in"></div>
                             <div class="card-body cardbg d-flex flex-column justify-content-center">
-                                <div class="row" v-for="account of accounts">
+                                <div class="row mb-3" v-for="account of accounts">
                                     <div class="col-5" >
                                         <h3 class="h3 font-bold">{{account.number}} </h3>
                                     </div>
-                                    <div class="col-7">
-                                        <h3 class="h3" style="justify-self: center; color: black !important;">${{account.balance}}</h3>
+                                    <div class="col-7 d-flex">
+                                        <h3 class="h3" style="justify-self: center; width: fit-content; color: black !important;">${{account.balance}}</h3>
+                                        <button style="background-color: transparent;" @click="changeEyeState()">
+                                            <img v-if="eyeClicked" src="./assets/ojoabierto.png" alt="ojo abierto">
+                                            <!-- <img v-if="!eyeClicked" src="./assets/cerrar-ojo.png" alt="ojo cerrado"> -->
+                                        </button>
                                     </div>
                                 </div>
                             </div>

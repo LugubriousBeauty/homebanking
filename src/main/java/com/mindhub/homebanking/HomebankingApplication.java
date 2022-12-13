@@ -1,18 +1,16 @@
 package com.mindhub.homebanking;
 
-import com.mindhub.homebanking.models.Account;
-import com.mindhub.homebanking.models.Client;
-import com.mindhub.homebanking.models.Transaction;
-import com.mindhub.homebanking.models.TransactionType;
-import com.mindhub.homebanking.repositories.AccountRepository;
-import com.mindhub.homebanking.repositories.ClientRepository;
-import com.mindhub.homebanking.repositories.TransactionRepository;
+import com.mindhub.homebanking.models.*;
+import com.mindhub.homebanking.repositories.*;
+import net.bytebuddy.asm.Advice;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 
 @SpringBootApplication
 public class HomebankingApplication {
@@ -22,7 +20,7 @@ public class HomebankingApplication {
 	}
 
 	@Bean
-	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository) {
+	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository, LoanRepository loanRepository, ClientLoanRepository clientLoanRepository) {
 		return (args) -> {
 			Client lucia = new Client("Lucia", "Vidal", "lucividal09@gmail.com");
 			Client dante = new Client("Dante", "Vilches", "dantevilches@gmail.com");
@@ -46,8 +44,21 @@ public class HomebankingApplication {
 			lucia.addAccount(account2);
 			dante.addAccount(account3);
 			dante.addAccount(account4);
+			List<Integer> payments1 = Arrays.asList(12,24,36,48,60);
+			List<Integer> payments2 = Arrays.asList(6,12,24);
+			List<Integer> payments3 = Arrays.asList(6,12,24,36);
+			Loan loan1 = new Loan("Mortgage", 500000.00, payments1);
+			Loan loan2 = new Loan("Personal", 500000.00, payments2);
+			Loan loan3= new Loan("Car loan", 500000.00, payments3);
+			ClientLoan clientLoan1 = new ClientLoan(400000.00, payments1.get(4), LocalDateTime.now());
+			loan1.addClientLoan(clientLoan1);
+			lucia.addClientLoan(clientLoan1);
 			clientRepository.save(lucia);
 			clientRepository.save(dante);
+			loanRepository.save(loan1);
+			loanRepository.save(loan2);
+			loanRepository.save(loan3);
+			clientLoanRepository.save(clientLoan1);
 			accountRepository.save(account1);
 			accountRepository.save(account2);
 			accountRepository.save(account3);
