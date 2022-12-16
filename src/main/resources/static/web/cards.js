@@ -4,7 +4,7 @@ createApp({
     data() {
         return {
             client: {},
-            accounts: [],
+            cards: [],
             checked: undefined
         }
     },
@@ -13,9 +13,9 @@ createApp({
         axios.get('http://localhost:8080/api/clients/1')
             .then(data => {
                 this.client = data.data;
-                this.accounts = data.data.accounts;
-                console.log(this.client)
-            })
+                this.cards = data.data.cards;
+                console.log(this.cards)
+            })  
         .catch(err => console.log(err))
     },
     methods: {
