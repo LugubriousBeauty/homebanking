@@ -50,22 +50,25 @@
 
 h1, h4 {
     color: white !important;
-    text-shadow: 0 0 2px rgb(0, 0, 0);
 }
 
 .nav-item > a, .nav-link {
-    color: #000000 !important;
-    font-weight: 600 !important;
+    color: #FFFF !important;
+    font-weight: 500 !important;
     font-size: 1rem !important;
 }
 
 .nav-link > i {
-    color: rgb(0, 0, 0) !important;
+    color: #FFFF !important;
     font-size: 1.2rem !important;
 }
 
 .nav-item a:hover, .nav-item a:hover .bi { 
     color: black !important; 
+}
+
+.menu a:hover {
+    color: white !important;
 }
 
 .menu a:hover {
@@ -89,9 +92,13 @@ body {
 }
 
 .navbar {
-    background-color: #F28F8F!important;
+    background-color: #752ab5 !important;
     border-right: none !important;
     overflow-y: hidden !important;
+}
+
+.form-check-input {
+    border: none !important;
 }
 
 
@@ -116,7 +123,7 @@ footer {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #F7BABA;
+    background-color: #EBEBEB;
     box-shadow: 8px 8px rgba(0, 0, 0, 0.784);
     width: 15rem;
     border-radius: 50px;
@@ -148,7 +155,7 @@ footer {
 }
 
 tr {
-    background-color: #F7BABA;
+    background-color: #dc9cfc;
 }
 
 h3 {
@@ -169,6 +176,11 @@ td {
     box-shadow: 10px 10px black !important;
 }
 
+.themeIcon {
+    height: 20px;
+    width: 20px;
+}
+
 @media (max-width: 352px) {
     .h3 {
         font-size: .8rem !important;
@@ -186,7 +198,7 @@ td {
 
 @media (min-width: 1440px) {
     td, th {
-        font-size: 1.5rem !important;
+        font-size: 1.2rem !important;
     }
 }
 

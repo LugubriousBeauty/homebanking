@@ -4,10 +4,12 @@ createApp({
     data() {
         return {
             account: {},
-            transactions: []
+            transactions: [],
+            checked: undefined
         }
     },
     created() {
+        this.checked = JSON.parse(localStorage.getItem("checked"))
         const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get('id');
         this.loadData(id);
@@ -29,6 +31,13 @@ createApp({
                 style.backgroundColor = '#ff928b';
             }
             return style;
+        }
+        
+    },
+    computed: {
+        saveOnLocalStorage() {
+            localStorage.setItem("checked", JSON.stringify(this.checked)); 
+            console.log(this.checked)
         }
     }
 }).mount('#app')

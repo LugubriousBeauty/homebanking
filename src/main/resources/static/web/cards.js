@@ -5,7 +5,9 @@ createApp({
         return {
             client: {},
             cards: [],
-            checked: undefined
+            checked: undefined,
+            debitCards: [],
+            creditCards: []
         }
     },
     created() {
@@ -15,6 +17,8 @@ createApp({
                 this.client = data.data;
                 this.cards = data.data.cards;
                 console.log(this.cards)
+                this.debitCards = this.cards.filter((card) => card.type === "DEBIT")
+                this.creditCards = this.cards.filter((card) => card.type === "CREDIT")
             })  
         .catch(err => console.log(err))
     },

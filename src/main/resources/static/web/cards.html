@@ -78,7 +78,7 @@
                 <div class="mt-auto"></div>
                 <!-- User (md) -->
                 <ul class="navbar-nav">
-                    <!-- Ex-Rate Currency Widget --><iframe src="https://ex-rate.com/widget/?c=USDEURJPYGBPAUDCADCHFHKDARS&s=000000ffffffe829e6&d&m" style="width:100%;border:0;height:333px"></iframe><a href="https://ex-rate.com/" style="display: block;text-align: right;font-size: .8em;margin-top: .5em;" target="_blank"></a><!-- END Ex-Rate Currency Widget -->
+                    <!-- Ex-Rate Currency Widget -->
                     <div class="form-check form-switch d-flex justify-content-start align-items-center px-20">
                         <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" v-model="checked" :style="{'background-color': checked ? 'black !important': '#FFFF !important'}">
                         <label for="flexSwitchCheckDefault">
@@ -135,7 +135,8 @@
                     <div class="container-fluid d-flex flex-column " style="height: 100%;">
                 <!-- Card stats -->
                 <div class="row g-6 mb-6 mt-2 justify-content-center">
-                    <div class="col-xl-4 col-sm-8 col-12 d-flex justify-content-center" v-for="card of cards">
+                    <h2 :style="{'color': checked ? ' #FFFF!important': '#202225 !important'}" class="d-flex justify-content-center mb-4">Credit cards</h2>
+                    <div class="col-xl-4 col-sm-8 col-12 d-flex justify-content-center" v-for="card of creditCards">
                         <div class="card">
                           <div class="card__front card__part" :class="[card.color]">
                             <img class="card__front-square card__square" src="./assets/chip.png">
@@ -168,8 +169,46 @@
                           
                         </div>
                     </div>
+                    <h4 v-if="!creditCards.length" :style="{'color': checked ? ' #FFFF!important': '#202225 !important'}" class="d-flex justify-content-center mb-4">There are no credit cards associated to your account</h4>
                 </div>
-                <div id="carouselExampleControls" class="carousel slide mt-auto mb-4" data-bs-ride="carousel" style="height: 200px !important;">
+                <div class="row g-6 mb-6 mt-2 justify-content-center">
+                    <h2 :style="{'color': checked ? ' #FFFF!important': '#202225 !important'}" class="d-flex justify-content-center mb-4">Debit cards</h2>
+                    <div class="col-xl-4 col-sm-8 col-12 d-flex justify-content-center" v-if="debitCards" v-for="card of debitCards">
+                        <div class="card">
+                          <div class="card__front card__part" :class="[card.color]">
+                            <img class="card__front-square card__square" src="./assets/chip.png">
+                            <img class="card__front-logo card__logo" src="./assets/visa.png">
+                            <p class="card_numer">{{card.number.substr(0, card.number.length-5)}}*****</p>
+                            <div class="card__space-75">
+                              <span class="card__label">Card type</span>
+                              <p class="card__info">{{card.type}}</p>
+                            </div>
+                            <div class="card__space-25">
+                              <span class="card__label">From</span>
+                                <p class="card__info">{{card.fromDate.substr(0,7)}}</p>
+                            </div>
+                            <div class="card__space-25">
+                                <span class="card__label">Thru</span>
+                                  <p class="card__info">{{card.thruDate.substr(0,7)}}</p>
+                              </div>
+                          </div>
+                          
+                          <div class="card__back card__part" :class="[card.color]">
+                            <div class="card__black-line"></div>
+                            <div class="card__back-content">
+                              <div class="card__secret">
+                                <p class="card__secret--last">{{card.cvv}}</p>
+                              </div>
+                              <img class="card__back-logo card__logo" src="./assets/visa.png">
+                              
+                            </div>
+                          </div>
+                          
+                        </div>
+                    </div>
+                    <h4 v-if="!debitCards.length" :style="{'color': checked ? ' #FFFF!important': '#202225 !important'}" class="d-flex justify-content-center mb-4">There are no debit cards associated to your account</h4>
+                </div>
+                <!-- <div id="carouselExampleControls" class="carousel slide mt-5 mb-4" data-bs-ride="carousel" style="height: 200px !important;">
                     <div class="carousel-inner">
                       <div class="carousel-item active">
                         <img src="./assets/HDFC-Smartoff.png" class="d-block w-100" alt="...">
@@ -189,7 +228,7 @@
                       <span class="carousel-control-next-icon" aria-hidden="true"></span>
                       <span class="visually-hidden">Next</span>
                     </button>
-                </div>
+                </div> -->
             <footer class="mt-auto" :style="{'border': checked ? 'none': '3px solid black'}">
                 <div class="socialMedia">
                     <a href="https://www.linkedin.com/in/luc%C3%ADa-vidal-9a9a43259/" target="_blank"><img src="./assets/linkedin.png" alt="linkedin" class="footericon"></a>
