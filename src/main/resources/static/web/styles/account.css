@@ -11,10 +11,10 @@
 
 
 .btn-primary {
-    background-color:  #655CC9;
+    background-color: #655CC9;
 }
 
-#logo { 
+#logo {
     height: 60px;
     width: 110px;
     color: black;
@@ -25,7 +25,7 @@
 }
 
 .bg-surface-primary {
-    background-image: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(10,9,14,1) 30%, rgba(10,9,14,1) 45%, rgba(10,9,14,1) 55%, rgba(10,9,14,1) 74%, rgba(0,0,0,1) 100%);
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 1) 0%, rgba(10, 9, 14, 1) 30%, rgba(10, 9, 14, 1) 45%, rgba(10, 9, 14, 1) 55%, rgba(10, 9, 14, 1) 74%, rgba(0, 0, 0, 1) 100%);
 }
 
 .h-screen {
@@ -46,14 +46,22 @@
 }
 
 
-.bg-surface-primary, .py-6 {
-    background-color: #202225c2 !important;
-}
 
-#app, body {
+#app,
+body {
     width: 100% !important;
     height: 100% !important;
-    background-color: #202225 !important;
+}
+
+.transactionsButton {
+    font-size: .9rem;
+    background-color: #EBEBEB;
+    border: 1px solid black;
+    box-shadow: 2px 2px black;
+    padding: .5rem;
+    border-radius: 10px;
+    color: #000000;
+    transition: 0.2s;
 }
 
 .main {
@@ -61,23 +69,38 @@
     padding: 0;
 }
 
-h1, h4 {
+.h-screen {
+    background-image: url(../assets/bryan-goff-f7YQo-eYHdM-unsplash.jpg);
+    width: 100%;
+    height: 100%;
+}
+
+.main {
+    background-image: url(../assets/bryan-goff-f7YQo-eYHdM-unsplash.jpg);
+    background-position: center;
+    background-size: cover;
+}
+
+h1,
+h4 {
     color: white !important;
 }
 
-.nav-item > a, .nav-link {
+.nav-item>a,
+.nav-link {
     color: #FFFF !important;
     font-weight: 500 !important;
     font-size: 1rem !important;
 }
 
-.nav-link > i {
+.nav-link>i {
     color: #FFFF !important;
     font-size: 1.2rem !important;
 }
 
-.nav-item a:hover, .nav-item a:hover .bi { 
-    color: black !important; 
+.nav-item a:hover,
+.nav-item a:hover .bi {
+    color: black !important;
 }
 
 .menu a:hover {
@@ -142,7 +165,7 @@ footer {
     border-radius: 50px;
     margin-bottom: .8rem;
     align-self: center;
-    justify-self: end;  
+    justify-self: end;
 }
 
 .socialMedia {
@@ -198,29 +221,24 @@ td {
     .h3 {
         font-size: .8rem !important;
     }
+
     .h6 {
         font-size: .7rem !important;
     }
 }
 
 @media (min-width: 780px) {
-    td, th {
+
+    td,
+    th {
         font-size: 1rem !important;
     }
 }
 
 @media (min-width: 1440px) {
-    td, th {
+
+    td,
+    th {
         font-size: 1.2rem !important;
     }
 }
-
-
-
-
-
-
-
-
-
-

@@ -140,7 +140,10 @@
                     :style="{'background-color': checked ? '#202225 !important': '#EBEBEB !important'}">
                     <div class="container-fluid d-flex flex-column " style="height: 100%;">
                         <!-- Card stats -->
-                        <div class="row g-6 mb-6 mt-2 justify-content-center">
+                        <div class="row g-6 mb-6 mt-2 justify-content-center m-xxl-4">
+                            <div v-if="accounts.length < 3" class="d-flex justify-content-center justify-content-md-start mt-2">
+                                <button class="transactionsButton" @click="createAccount">Create account <img src="./assets/add-user.png" alt=""></button>
+                            </div>
                             <div class="col-xl-4 col-sm-8 col-12" v-for="account of accounts">
                                 <div class="card shadow border-0">
                                     <div data-aos="zoom-in"></div>
@@ -169,7 +172,7 @@
                                             </div>
                                             <div class="col d-flex align-items-end justify-content-end">
                                                 <a :href="`http://localhost:8080/web/account.html?id=${account.id}`"><button
-                                                        id="transactionsButton">Transactions</button></a>
+                                                        class="transactionsButton">Transactions</button></a>
                                             </div>
                                         </div>
                                     </div>
@@ -178,9 +181,9 @@
                         </div>
 
                         <div class="row mt-5 p-4">
-                            <div class="col-sm-6 col-12 mb-4 mb-sm-0 p-1 d-flex justify-content-start">
+                            <div class="col-sm-6 col-12 mb-4 mb-sm-0 p-1 d-flex justify-content-md-start justify-content-center">
                                 <!-- Title -->
-                                <h1 class="d-none d-sm-flex justify-content-center d-lg-block"
+                                <h1 class="d-flex justify-content-center d-lg-block"
                                     :style="{'color': checked ? ' #FFFF!important': '#202225 !important'}">Your loans
                                 </h1>
                             </div>

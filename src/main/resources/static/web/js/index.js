@@ -29,7 +29,7 @@ createApp({
 				console.log('error')
 			} else {
 				axios.post('/api/clients', `firstName=${this.firstName}&lastName=${this.lastName}&email=${this.email}&password=${this.password}`)
-					.then(response => window.location.href = "http://localhost:8080/web/accounts.html")
+					.then(response => this.login())
 				.catch(err => console.log(err))
 			}
 		}

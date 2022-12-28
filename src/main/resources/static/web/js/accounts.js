@@ -10,17 +10,28 @@ createApp({
     },
     created() {
         this.checked = JSON.parse(localStorage.getItem("checked"))
-        axios.get('http://localhost:8080/api/clients/current')
+        this.loadData();
+    },
+    methods: {
+        loadData() {
+            axios.get('http://localhost:8080/api/clients/current')
             .then(data => {
                 this.client = data.data;
                 this.accounts = data.data.accounts;
                 console.log(this.client)
             })
-        .catch(err => console.log(err))
-    },
-    methods: {
+            .catch(err => console.log(err))
+        },
         click() {
             axios.post('/api/logout').then(response => window.location.href = "http://localhost:8080/web/index.html")
+        },
+        createAccount() {
+            axios.post('http://localhost:8080/api/clients/current/accounts')
+                .then(data => {
+                    console.log(data);
+                    this.loadData();
+                })
+            .catch(err => console.log(err))
         }
     },
     computed: {

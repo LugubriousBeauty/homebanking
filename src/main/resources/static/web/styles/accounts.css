@@ -90,7 +90,7 @@ body {
 }
 
 
-#transactionsButton {
+.transactionsButton {
     font-size: .9rem;
     background-color: #EBEBEB;
     border: 1px solid black;
@@ -101,7 +101,7 @@ body {
     transition: 0.2s;
 }
 
-#transactionsButton:hover {
+.transactionsButton:hover {
     background-color: #dc9cfc;
 }
 
@@ -138,13 +138,13 @@ footer {
 
 
 .h-screen {
-    background-image: url(../assets/84353.jpg);
+    background-image: url(../assets/bryan-goff-f7YQo-eYHdM-unsplash.jpg);
     width: 100%;
     height: 100%;
 }
 
 .main {
-    background-image: url(../assets/84353.jpg);
+    background-image: url(../assets/bryan-goff-f7YQo-eYHdM-unsplash.jpg);
     background-position: center;
     background-size: cover;
 }
@@ -183,6 +183,8 @@ footer {
         font-size: .7rem !important;
     }
 }
+
+
 /* @media (max-width: 992px) {
     #logo {
         margin-top: 0px;
