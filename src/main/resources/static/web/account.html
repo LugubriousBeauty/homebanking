@@ -61,6 +61,12 @@
                     <i class="bi bi-credit-card-2-back"></i></i> Cards
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link d-flex justify-content-center justify-content-lg-start"
+                    href="./transfers.html">
+                    <i class="bi bi-arrow-down-up"></i></i> Transactions
+                </a>
+            </li>
         </ul>
         <!-- Divider -->
         <img src="./assets/To the stars.gif" alt="piggy" id="piggylogo" class="mt-auto d-none d-lg-flex"> 
@@ -118,7 +124,7 @@
                                             <td>{{transaction.description}}</td>
                                             <td>{{transaction.date.substring(0,10)}}</td>
                                             <td>{{transaction.date.substring(11,19)}}</td>
-                                            <td :style="tableRowStyle(transaction.type)"> {{transaction.type}}</td>
+                                            <td :style="tableRowStyle(transaction.type)" style="color: black !important;"> {{transaction.type}}</td>
                                         </tr>
                                     </tbody>
                                 </table>

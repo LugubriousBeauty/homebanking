@@ -190,8 +190,9 @@ footer {
     animation-duration: 0.5s;
 }
 
-tr {
-    background-color: #dc9cfc;
+table {
+    background-color: rgba(0, 0, 0, 0.637);
+    border: 1px solid white;
 }
 
 h3 {
@@ -199,12 +200,12 @@ h3 {
 }
 
 th {
-    color: black !important;
+    color: rgb(255, 255, 255) !important;
     font-weight: bold !important;
 }
 
 td {
-    color: black !important;
+    color: rgb(255, 255, 255) !important;
 }
 
 .table-responsive {
