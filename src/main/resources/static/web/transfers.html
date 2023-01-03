@@ -12,8 +12,8 @@
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
     <link href="https://unpkg.com/pattern.css" rel="stylesheet">
-    <link rel="stylesheet" href="./styles/accounts.css">
-    <title>Your accounts</title>
+    <link rel="stylesheet" href="./styles/transfers.css">
+    <title>Transactions</title>
 </head>
 
 <body class="d-flex flex-column">
@@ -59,8 +59,7 @@
                         <!-- Navigation -->
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link active d-flex justify-content-center justify-content-lg-start"
-                                    href="#">
+                                <a class="nav-link d-flex justify-content-center justify-content-lg-start" href="#">
                                     <i class="bi bi-person-circle"></i></i> Accounts
                                 </a>
                             </li>
@@ -71,8 +70,8 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link d-flex justify-content-center justify-content-lg-start"
-                                    href="./transfers.html">
+                                <a class="nav-link active d-flex justify-content-center justify-content-lg-start"
+                                    href="">
                                     <i class="bi bi-arrow-down-up"></i></i> Transactions
                                 </a>
                             </li>
@@ -86,7 +85,8 @@
                         <!-- User (md) -->
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link  justify-content-lg-start justify-content-center" href="#" @click="click">
+                                <a class="nav-link  justify-content-lg-start justify-content-center" href="#"
+                                    @click="click">
                                     <i class="bi bi-box-arrow-left"></i> Logout
                                 </a>
                             </li>
@@ -104,9 +104,8 @@
                             <div class="row align-items-center p-2">
                                 <div class="col-sm-6 col-12 mb-4 mb-sm-0 p-1 d-flex justify-content-start">
                                     <!-- Title -->
-                                    <h1 class="d-none d-sm-flex justify-content-center d-lg-block"
-                                        :style="{'color': checked ? ' #FFFF!important': '#202225 !important'}">Your
-                                        accounts</h1>
+                                    <h1 class="d-none d-sm-flex justify-content-center d-lg-block" style="color:white">
+                                        Transactions</h1>
                                 </div>
                                 <!-- Actions -->
                                 <div class="col-sm-6 col-12 text-sm-end d-none d-sm-flex justify-content-end">
@@ -142,109 +141,79 @@
                     </div>
                 </header>
                 <!-- Main -->
-                <div class="main d-flex flex-column justify-content-center align-content-center flex-grow-1"
-                    :style="{'background-color': checked ? '#202225 !important': '#EBEBEB !important'}">
-                    <div class="container-fluid d-flex flex-column " style="height: 100%;">
+                <div class="main d-flex flex-column justify-content-center align-content-center flex-grow-1">
+                    <div class="container-fluid d-flex flex-column justify-content-center align-items-center" style="height: 100%;">
                         <!-- Card stats -->
-                        <div class="row g-6 mb-6 mt-2 justify-content-center m-xxl-4">
-                            <div v-if="accounts.length < 3" class="d-flex justify-content-center justify-content-md-start mt-2">
-                                <button class="transactionsButton" @click="createAccount">Create account <img src="./assets/add-user.png" alt=""></button>
-                            </div>
-                            <div class="col-xl-4 col-sm-8 col-12" v-for="account of accounts">
-                                <div class="card shadow border-0" style="background-color: transparent !important;">
-                                    <div data-aos="zoom-in"></div>
-                                    <div class="card-body cardbg">
-                                        <div class="row">
-                                            <div class="col">
-                                                <span class="h6 font-semibold text-sm d-block mb-2">Account
-                                                    number</span>
-                                                <span class="h3 font-semibold  d-block mb-2">{{account.number}}</span>
-                                                <span class="h6 font-semibold text-sm d-block mb-2">Budget</span>
-                                                <span class="h3 font-bold mb-0">${{account.balance}}</span>
-                                            </div>
-                                            <div class="col-auto">
-                                                <div
-                                                    class="icon icon-shape bg-tertiary text-white text-lg rounded-circle">
-                                                    <i class="bi bi-credit-card"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <span class="h6 font-semibold text-sm d-block mb-2 mt-2">Creation
-                                                    date</span>
-                                                <span
-                                                    class="h3 font-bold mb-0">{{account.creationDate.substring(0,10)}}</span>
-                                            </div>
-                                            <div class="col d-flex align-items-end justify-content-end">
-                                                <a :href="`http://localhost:8080/web/account.html?id=${account.id}`"><button
-                                                        class="transactionsButton">Transactions</button></a>
-                                            </div>
-                                        </div>
+                        <div class="row g-6 mb-6 mt-2 justify-content-center m-xxl-4 "
+                            style="background-color: rgba(0, 0, 0, 0.637);">
+                            <h3 style="color:white; width: fit-content;" class="d-flex justify-content-center mt-5 ">Make a new transaction</h3>
+                            <form class="d-flex flex-column align-items-center mt-8">
+                                <div class="radios d-flex flex-column">
+                                    <div class="form-check" >
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                            id="flexRadioDefault1" value="local" v-model="transactionAccount" checked>
+                                        <label class="form-check-label" for="flexRadioDefault1" style="color: white;">
+                                            To one of my accounts
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="form-check mb-4" >
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                            id="flexRadioDefault2" value="thirdParty" v-model="transactionAccount">
+                                        <label class="form-check-label" for="flexRadioDefault2" style="color: white;">
+                                            To a third party account
+                                        </label>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="row mt-5 p-4">
-                            <div class="col-sm-6 col-12 mb-4 mb-sm-0 p-1 d-flex justify-content-md-start justify-content-center">
-                                <!-- Title -->
-                                <h1 class="d-flex justify-content-center d-lg-block"
-                                    :style="{'color': checked ? ' #FFFF!important': '#202225 !important'}">Your loans
-                                </h1>
-                            </div>
-                        </div>
-                        <div class="row g-6 mb-10 mt-2 justify-content-center" v-if="client.clientLoans">
-                            <div class="col-xl-4 col-sm-8 col-12" v-for="loan of client.clientLoans">
-                                <div class="card shadow border-0" style="background-color: transparent !important;">
-                                    <div data-aos="zoom-in"></div>
-                                    <div class="card-body cardbg">
-                                        <div class="row">
-                                            <div class="col">
-                                                <span class="h3 font-semibold  d-block mb-2">{{loan.name}} loan</span>
-                                                <span class="h6 font-semibold text-sm d-block mb-2">Amount</span>
-                                                <span class="h3 font-bold mb-0">${{loan.amount}}</span>
-                                            </div>
-                                            <div class="col-auto" style="margin-top: -.5rem;">
-                                                <i class="bi bi-piggy-bank-fill" style="color: white; font-size: 2rem;" ></i>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <span class="h6 font-semibold text-sm d-block mb-2 mt-2">Payments</span>
-                                                <span class="h3 font-bold mb-0">{{loan.payments}}</span>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <span class="h6 font-semibold text-sm d-block mb-2 mt-2">Date</span>
-                                                <span class="h3 font-bold mb-0">{{loan.date.substr(0,10)}}</span>
-                                            </div>
-                                        </div>
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example" style="width: 13rem;" v-model="originAccount">
+                                        <option v-for="account of accounts" :value="account.number">{{account.number}}
+                                        </option>
+                                    </select>
+                                    <label for="floatingSelect">From account</label>
+                                </div>
+                                <div class="form-floating" v-if="transactionAccount == 'local'">
+                                    <select class="form-select" id="floatingSelect"
+                                        aria-label="Floating label select example" style="width: 13rem;" v-model="destinyAccount">
+                                        <option v-for="account in filterAccounts()" :value="account.number">{{account.number}}
+                                        </option>
+                                    </select>
+                                    <label for="floatingSelect">To account</label>
+                                </div>
+                                <div v-else class="mb-4">
+                                    <h6 style="color: white;" class="mb-3 mt-3">To account</h6>
+                                    <input type="text" class="form-control" placeholder="Account number" aria-label="Username" aria-describedby="addon-wrapping"> 
+                                </div>
+                                <div class="mb-3 mt-8 d-flex justify-content-center">
+                                    <div class="input-group mb-3" style="width: 80%;">
+                                        <span class="input-group-text" style="color: black !important; border-right: 2px solid black;">$</span>
+                                        <input type="text" class="form-control" placeholder="Amount" v-model="amount">
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div v-else>
-                            <h2>You don't have any loans</h2>
+                                <textarea name="description" cols="30" rows="4" placeholder="Description" style="border-radius: 5px; padding: 10px;" v-model="description"></textarea>
+                                <button type="submit" class="btn btn-primary mb-4 mt-4" @click.prevent="makeTransaction">Transfer</button>
+                            </form>
                         </div>
 
-                        <footer class="mt-10" style="border: 3px solid black">
-                            <div class="socialMedia">
-                                <a href="https://www.linkedin.com/in/luc%C3%ADa-vidal-9a9a43259/" target="_blank"><img
-                                        src="./assets/linkedin.png" alt="linkedin" class="footericon"></a>
-                                <a href="https://github.com/LugubriousBeauty" target="_blank"><img
-                                        src="./assets/github.png" alt="github" class="footericon"></a>
-                                <a href="mailto:lucividal09@gmail.com"><img src="./assets/email.png" alt="email"
-                                        class="footericon"></a>
-                            </div>
-                        </footer>
+
+
                     </div>
                 </div>
-
+                <footer class="mt-10" style="border: 3px solid black">
+                    <div class="socialMedia">
+                        <a href="https://www.linkedin.com/in/luc%C3%ADa-vidal-9a9a43259/" target="_blank"><img
+                                src="./assets/linkedin.png" alt="linkedin" class="footericon"></a>
+                        <a href="https://github.com/LugubriousBeauty" target="_blank"><img src="./assets/github.png"
+                                alt="github" class="footericon"></a>
+                        <a href="mailto:lucividal09@gmail.com"><img src="./assets/email.png" alt="email"
+                                class="footericon"></a>
+                    </div>
+                </footer>
             </div>
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
@@ -255,7 +224,7 @@
     <script>
         AOS.init();
     </script>
-    <script src="./js/accounts.js"></script>
+    <script src="./js/transfers.js"></script>
 </body>
 
 </html>

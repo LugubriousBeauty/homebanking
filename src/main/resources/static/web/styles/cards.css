@@ -186,62 +186,21 @@ footer {
 }
 
 .GOLD {
-    background-image: url("../assets/world.png"), radial-gradient(
-        ellipse farthest-corner at right bottom,
-        #fedb37 0%,
-        #fdb931 8%,
-        #9f7928 30%,
-        #8a6e2f 40%,
-        transparent 80%
-      ),
-      radial-gradient(
-        ellipse farthest-corner at left top,
-        #ffffff 0%,
-        #ffffac 8%,
-        #d1b464 25%,
-        #5d4a1f 62.5%,
-        #5d4a1f 100%
-    );
+    background-image: url("../assets/world.png");
+    border: 4px solid rgb(253, 185, 49, 0.637);
+    background-color: rgba(0, 0, 0, 0.637);
 }
 
 .TITANIUM {
-    background-image: url("../assets/world.png"),
-    radial-gradient(
-        ellipse farthest-corner at right bottom,
-        #737372 0%,
-        #636361 8%,
-        #565654 30%,
-        #3a3a3a 40%,
-        transparent 80%
-      ),
-      radial-gradient(
-        ellipse farthest-corner at left top,
-        #eaeaea 0%,
-        #989896 8%,
-        #7a7a79 25%,
-        #60605f 62.5%,
-        #4b4b4a 100%
-    );
+    background-image: url("../assets/world.png");
+    border: 4px solid rgba(110, 110, 108, 0.637);
+    background-color: rgba(0, 0, 0, 0.637);
 }
 
 .SILVER {
-    background-image: url("../assets/world.png"),
-    radial-gradient(
-        ellipse farthest-corner at right bottom,
-        #a0a09e 0%,
-        #81817e 8%,
-        #7a7a77 30%,
-        #5c5a5a 40%,
-        transparent 80%
-      ),
-      radial-gradient(
-        ellipse farthest-corner at left top,
-        #ffffff 0%,
-        #b0b0b0 8%,
-        #a0a0a0 25%,
-        #848483 62.5%,
-        #6b6b6a 100%
-    );
+    background-image: url("../assets/world.png");
+    border: 4px solid rgba(198, 198, 195, 0.637);
+    background-color: rgba(0, 0, 0, 0.637);
 }
 
 .form-check > input {
