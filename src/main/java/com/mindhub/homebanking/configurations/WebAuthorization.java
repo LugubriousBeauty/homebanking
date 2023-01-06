@@ -27,10 +27,9 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/clients/current/accounts").hasRole("CLIENT")
                 .antMatchers(HttpMethod.POST, "/clients/current/cards").hasRole("CLIENT")
                 .antMatchers(HttpMethod.POST, "/clients/current/transactions").hasRole("CLIENT")
-
+                .antMatchers(HttpMethod.POST, "/clients/current/loans").hasRole("CLIENT")
                 .antMatchers(HttpMethod.PUT, "/clients/**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.PATCH, "/clients/**").hasRole("ADMIN").and()
-                .csrf().disable();
+                .antMatchers(HttpMethod.PATCH, "/clients/**").hasRole("ADMIN");
 
         http.authorizeRequests()
                 .antMatchers( "/web/js/**", "/web/assets/**","/web/styles/**", "/web/index.html").permitAll()

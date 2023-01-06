@@ -4,6 +4,8 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
@@ -17,8 +19,16 @@ body {
     align-items: center;
     flex-direction: column;
     font-family: 'Poppins', sans-serif;
-    height: 100vh;
-    margin: -20px 0 50px;
+    min-height: 100vh;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
 }
 
 h1 {
@@ -111,6 +121,7 @@ input {
 
 
 .container-sm {
+    justify-content: center;
     height: 65vh;
     width: 100%;
 }

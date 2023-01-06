@@ -82,7 +82,8 @@ body {
 }
 
 h1,
-h4 {
+h4,
+h2 {
     color: white !important;
 }
 

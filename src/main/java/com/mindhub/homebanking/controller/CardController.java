@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
@@ -30,7 +31,7 @@ public class CardController {
     ClientRepository clientRepository;
 
     @RequestMapping("/cards/{id}")
-    public CardDTO getCards(@PathVariable Long id) {
+    public CardDTO getCard(@PathVariable Long id) {
         return cardRepository
                 .findById(id)
                 .map(CardDTO::new)
@@ -45,9 +46,17 @@ public class CardController {
                 .collect(toList());
     }
 
-    public int getRandomNumber(int min, int max) {
+    public String getRandomNumber(int min, int max) {
         Random random = new Random();
-        return random.nextInt(max - min) + min;
+        String number = random.nextInt(max - min) + min + "-" + random.nextInt(max - min) + min + "-" +
+                random.nextInt(max - min) + min + "-" + random.nextInt(max - min) + min;
+        String finalNumber = number;
+        Set<String> cardsNumbers = cardRepository.findAll().stream().map(card -> card.getNumber())
+                .filter(cardNumber -> cardNumber == finalNumber).collect(Collectors.toSet());
+        if(cardsNumbers.size() > 0) {
+            number = getRandomNumber(0000, 9999);
+        }
+        return number;
     }
 
     @RequestMapping(path = "/clients/current/cards", method = RequestMethod.POST)
@@ -56,17 +65,19 @@ public class CardController {
             Authentication authentication) {
 
         Client client = clientRepository.findByEmail(authentication.getName());
+        Set<Card> filteredCards = client.getCards().stream().filter(card -> card.getColor() == color && card.getType() == type).collect(Collectors.toSet());
 
-        if(client.getCards().stream().filter(card -> card.getColor() == color).collect(Collectors.toSet()).size() > 2) {
+        if(filteredCards.size() > 0) {
             return new ResponseEntity<>("Cards limit exceeded", HttpStatus.FORBIDDEN);
         }
 
         if (color.toString().isEmpty() || type.toString().isEmpty()) {
             return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
         }
-        String number = getRandomNumber(0000,9999) + "-" + getRandomNumber(0000,9999) + "-" +
-                getRandomNumber(0000,9999) + "-" + getRandomNumber(0000,9999);
-        Card card = new Card(client.getFirstName() + " " + client.getLastName(), number, getRandomNumber(111,999),
+        String number = getRandomNumber(0000,9999);
+        Random random = new Random();
+        int cvv = random.nextInt(999-111) + 111;
+        Card card = new Card(client.getFirstName() + " " + client.getLastName(), number, cvv,
                 LocalDate.now(), LocalDate.now().plusYears(5), type, color);
         cardRepository.save(card);
         client.addCard(card);

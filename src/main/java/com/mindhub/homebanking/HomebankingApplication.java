@@ -29,7 +29,8 @@ public class HomebankingApplication {
 									  TransactionRepository transactionRepository, LoanRepository loanRepository,
 									  ClientLoanRepository clientLoanRepository, CardRepository cardRepository) {
 		return (args) -> {
-					Client lucia = new Client("Lucia", "Vidal", "lucividal09@gmail.com", passwordEncoder.encode("823940a"));
+			Client lucia = new Client("Lucia", "Vidal", "lucividal09@gmail.com", passwordEncoder.encode("lucia"));
+			Client admin = new Client("admin", "admin", "admin@admin.com", passwordEncoder.encode("lucia"));
 			Client dante = new Client("Dante", "Vilches", "dantevilches@gmail.com", passwordEncoder.encode("fh36q8"));
 			Account account1 = new Account("VIN001", LocalDateTime.now(), 5000.00);
 			Account account2 = new Account("VIN002", LocalDateTime.now().plusDays(1), 7500.00);
@@ -83,6 +84,7 @@ public class HomebankingApplication {
 
 			clientRepository.save(lucia);
 			clientRepository.save(dante);
+			clientRepository.save(admin);
 
 			loanRepository.save(loan1);
 			loanRepository.save(loan2);

@@ -67,6 +67,12 @@
                     <i class="bi bi-arrow-down-up"></i></i> Transactions
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link d-flex justify-content-center justify-content-lg-start"
+                    href="./loan-application.html">
+                    <i class="bi bi-piggy-bank-fill"></i></i> Loans
+                </a>
+            </li>
         </ul>
         <!-- Divider -->
         <img src="./assets/To the stars.gif" alt="piggy" id="piggylogo" class="mt-auto d-none d-lg-flex"> 
@@ -87,14 +93,14 @@
     <!-- Main content -->
     <div class="d-flex flex-column h-screen overflow-y-lg-auto">
         <!-- Header -->
-        <header class="bg-surface-primary pt-6 p-4 d-flex" :style="{'background-color': checked ? '#202225 !important': '#EBEBEB !important'}">
+        <header class="bg-surface-primary pt-6 p-4 d-flex" >
             <div class="container-fluid d-flex justify-content-center p-2">
-                <h1 :style="{'color': checked ? ' #FFFF!important': '#202225 !important'}">Transactions</h1>
+                <h1 >Transactions</h1>
                 
             </div>
         </header>
         <!-- Main -->
-        <div class="main d-flex flex-column justify-content-center align-content-center flex-grow-1" :style="{'background-color': checked ? '#202225 !important': '#EBEBEB !important'}">
+        <div class="main d-flex flex-column justify-content-center align-content-center flex-grow-1" >
             <div class="container-fluid d-flex flex-column " style="height: 100%;">
                 <!-- Card stats -->
                 <a href="./accounts.html" class="mt-4">
@@ -102,8 +108,8 @@
                 </a>
                 <div class="row g-6 mb-6 mt-2 justify-content-center" style="height: 100%;">
                     <div class="row mb-6 align-self-center">
-                        <h3 class="d-flex justify-content-center" :style="{'color': checked ? ' #FFFF!important': '#202225 !important'}">Account {{account.number}}</h3>
-                        <h3 class="d-flex justify-content-center" :style="{'color': checked ? ' #FFFF!important': '#202225 !important'}">Balance: {{account.balance}}</h3>
+                        <h3 class="d-flex justify-content-center" >Account {{account.number}}</h3>
+                        <h3 class="d-flex justify-content-center" >Balance: {{account.balance}}</h3>
                     </div>
                     <div class="row g-3 mb-6 mt-3 w-100">
                         <div class="col w-100">
@@ -133,7 +139,7 @@
                     </div>
                 </div>
             </div>
-            <footer  :style="{'border': checked ? 'none': '3px solid black'}">
+            <footer  >
                 <div class="socialMedia">
                     <a href="https://www.linkedin.com/in/luc%C3%ADa-vidal-9a9a43259/" target="_blank"><img src="./assets/linkedin.png" alt="linkedin" class="footericon"></a>
                     <a href="https://github.com/LugubriousBeauty" target="_blank"><img src="./assets/github.png" alt="github" class="footericon"></a>

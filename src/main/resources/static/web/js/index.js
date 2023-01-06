@@ -1,5 +1,7 @@
 const { createApp } = Vue;
 
+
+
 createApp({
 	data () {
 		return {
@@ -10,6 +12,7 @@ createApp({
 		}
 	},
 	created() {
+		
 		console.log('hola')
 	},
 	methods: {
@@ -18,11 +21,8 @@ createApp({
 			console.log(this.password)
 			axios.post('/api/login',`email=${this.email}&password=${this.password}`)
 				.then(response => window.location.href = "http://localhost:8080/web/accounts.html")
-			.catch(err => {
-				Swal.fire({
-					icon: 'error'
-				  })
-			})
+			.catch(err =>  
+				Swal.fire('Wrong credentials', 'Try again or sign up if you dont have an account', 'error'))
 		},
 		signup() {
 			if(!this.firstName || !this.lastName || !this.email || !this.password) {
@@ -30,7 +30,11 @@ createApp({
 			} else {
 				axios.post('/api/clients', `firstName=${this.firstName}&lastName=${this.lastName}&email=${this.email}&password=${this.password}`)
 					.then(response => this.login())
-				.catch(err => console.log(err))
+				.catch(err => Swal.fire({
+					icon: 'error',
+					title: 'Prueba',
+					text: 'pruebaaa'
+				}))
 			}
 		}
 	}

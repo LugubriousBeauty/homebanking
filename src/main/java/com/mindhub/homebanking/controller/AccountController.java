@@ -7,6 +7,7 @@ import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
@@ -51,6 +53,18 @@ public class AccountController {
                 .collect(toList());
     }
 
+    public String getRandomNumber(int min, int max) {
+        Random random = new Random();
+        String number = "VIN" + random.nextInt(max - min) + min;
+        String finalNumber = number;
+        Set<String> accountsNumbers = accountRepository.findAll().stream().map(account -> account.getNumber())
+                .filter(accountNumber -> accountNumber == finalNumber).collect(Collectors.toSet());
+        if(accountsNumbers.size() > 0) {
+            number = getRandomNumber(0000, 9999);
+        }
+        return number;
+    }
+
 
     @RequestMapping(path = "/clients/current/accounts", method = RequestMethod.POST)
     public ResponseEntity<Object> register(Authentication authentication) {
@@ -58,8 +72,8 @@ public class AccountController {
         if (client.getAccounts().size() > 2) {
             return new ResponseEntity<>("Accounts limit exceeded", HttpStatus.FORBIDDEN);
         }
-        int random = new Random().nextInt((99999999 - 0) - 0);
-        Account account = new Account("VIN"+ random, LocalDateTime.now(), 0.00);
+        String accountNumber = getRandomNumber(0000,9999);
+        Account account = new Account(accountNumber, LocalDateTime.now(), 0.00);
         accountRepository.save(account);
         client.addAccount(account);
         clientRepository.save(client);

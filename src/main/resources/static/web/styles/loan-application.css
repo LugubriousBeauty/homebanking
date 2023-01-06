@@ -18,10 +18,6 @@ span {
     color: #EBEBEB !important;
 }
 
-h1, h2, h4 {
-    color: white !important;
-}
-
 #logo { 
     height: 60px;
     width: 110px;
@@ -47,9 +43,9 @@ h1, h2, h4 {
     padding: 0;
 }
 
-/* h1, h4 {
-    text-shadow: 0 0 2px rgb(0, 0, 0);
-} */
+ h1, h4, h6 {
+    color: white !important;
+} 
 
 .nav-item > a, .nav-link {
     color: #FFFF !important;
@@ -158,6 +154,7 @@ footer {
     background-size: cover;
 }
 
+
 .nav-link active {
     border-right: 7px solid #dc9cfc;
 }
@@ -183,6 +180,8 @@ footer {
     width: 100%;
     overflow: hidden;
 }
+
+
 
 @media (max-width: 352px) {
     .h3 {
