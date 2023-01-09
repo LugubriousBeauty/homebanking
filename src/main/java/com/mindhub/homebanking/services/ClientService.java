@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -24,8 +25,8 @@ public interface ClientService {
 
     public void save(Client client);
 
-    public void register(Client client, String siteURL) throws UnsupportedEncodingException, MessagingException;
+    public void sendVerificationEmail(Client client, String siteURL) throws MessagingException, UnsupportedEncodingException;
 
-    private void sendVerificationEmail(Client client, String siteURL) {}
+    public void createClient(Client client, HttpServletRequest request) throws MessagingException, UnsupportedEncodingException;
 
 }

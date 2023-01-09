@@ -5,6 +5,8 @@ import com.mindhub.homebanking.dtos.CardDTO;
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repositories.CardRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
+import com.mindhub.homebanking.services.CardService;
+import com.mindhub.homebanking.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,25 +27,18 @@ import static java.util.stream.Collectors.toList;
 public class CardController {
 
     @Autowired
-    CardRepository cardRepository;
+    CardService cardService;
 
     @Autowired
-    ClientRepository clientRepository;
+    ClientService clientService;
 
     @RequestMapping("/cards/{id}")
     public CardDTO getCard(@PathVariable Long id) {
-        return cardRepository
-                .findById(id)
-                .map(CardDTO::new)
-                .orElse(null);
+        return cardService.getCardDTO(cardService.getCard(id));
     }
     @RequestMapping("/cards")
     public List<CardDTO> getCards() {
-        return cardRepository
-                .findAll()
-                .stream()
-                .map(CardDTO::new)
-                .collect(toList());
+        return cardService.getCardsDTO(cardService.getCards());
     }
 
     public String getRandomNumber(int min, int max) {
@@ -51,7 +46,7 @@ public class CardController {
         String number = random.nextInt(max - min) + min + "-" + random.nextInt(max - min) + min + "-" +
                 random.nextInt(max - min) + min + "-" + random.nextInt(max - min) + min;
         String finalNumber = number;
-        Set<String> cardsNumbers = cardRepository.findAll().stream().map(card -> card.getNumber())
+        Set<String> cardsNumbers = cardService.getCards().stream().map(card -> card.getNumber())
                 .filter(cardNumber -> cardNumber == finalNumber).collect(Collectors.toSet());
         if(cardsNumbers.size() > 0) {
             number = getRandomNumber(0000, 9999);
@@ -64,7 +59,7 @@ public class CardController {
             @RequestParam CardColor color, @RequestParam CardType type,
             Authentication authentication) {
 
-        Client client = clientRepository.findByEmail(authentication.getName());
+        Client client = clientService.findByEmail(authentication.getName());
         Set<Card> filteredCards = client.getCards().stream().filter(card -> card.getColor() == color && card.getType() == type).collect(Collectors.toSet());
 
         if(filteredCards.size() > 0) {
@@ -79,9 +74,9 @@ public class CardController {
         int cvv = random.nextInt(999-111) + 111;
         Card card = new Card(client.getFirstName() + " " + client.getLastName(), number, cvv,
                 LocalDate.now(), LocalDate.now().plusYears(5), type, color);
-        cardRepository.save(card);
+        cardService.save(card);
         client.addCard(card);
-        clientRepository.save(client);
+        clientService.save(client);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

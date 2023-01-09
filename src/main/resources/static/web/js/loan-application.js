@@ -59,8 +59,8 @@ createApp({
                 const { value: question } = await swal.fire({
                     icon: 'question',
                     title: 'Are you sure?',
-                    text: `You are about to request a $${this.amount} ${this.chosenLoan.name} loan. The final amount including interest is
-                    $${parseFloat(this.amount) + parseFloat(this.amount)*0.2}`,
+                    text: `You are about to request a $${this.amount} ${this.chosenLoan.name} loan in ${this.payments} payments. The final amount including interest is
+                    $${parseFloat(this.amount) + parseFloat(this.amount)*0.2} ($${(parseFloat(this.amount) + parseFloat(this.amount)*0.2)/this.payments} per month)`,
                     showCancelButton: true
                 })
                 console.log(question)

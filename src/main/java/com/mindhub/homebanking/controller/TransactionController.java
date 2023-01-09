@@ -8,6 +8,9 @@ import com.mindhub.homebanking.models.TransactionType;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.repositories.TransactionRepository;
+import com.mindhub.homebanking.services.AccountService;
+import com.mindhub.homebanking.services.ClientService;
+import com.mindhub.homebanking.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,20 +30,16 @@ import java.util.stream.Collectors;
 public class TransactionController {
 
     @Autowired
-    private TransactionRepository transactionRepository;
+    private TransactionService transactionService;
     @Autowired
-    private AccountRepository accountRepository;
+    private AccountService accountService;
     @Autowired
-    ClientRepository clientRepository;
+    private ClientService clientService;
 
 
     @RequestMapping("/transactions")
     public List<TransactionDTO> getTransactions() {
-        return transactionRepository
-                .findAll()
-                .stream()
-                .map(TransactionDTO::new)
-                .collect(Collectors.toList());
+        return transactionService.getTransactionsDTO(transactionService.getTransactions());
     }
 
     @Transactional
@@ -57,14 +56,14 @@ public class TransactionController {
             return new ResponseEntity<>("accounts cannot be the same", HttpStatus.FORBIDDEN);
         }
 
-        Account originAccount = accountRepository.findByNumber(originNumber);
-        Account destinyAccount = accountRepository.findByNumber(destinyNumber);
+        Account originAccount = accountService.findByNumber(originNumber);
+        Account destinyAccount = accountService.findByNumber(destinyNumber);
 
         if(originAccount == null ||destinyAccount == null) {
             return new ResponseEntity<>("Account/s not found", HttpStatus.FORBIDDEN);
         }
 
-        Client client = clientRepository.findByEmail(authentication.getName());
+        Client client = clientService.findByEmail(authentication.getName());
 
         if(client == null) {
             return new ResponseEntity<>("user doesn't exist", HttpStatus.FORBIDDEN);
@@ -90,11 +89,11 @@ public class TransactionController {
         destinyAccount.addTransaction(creditTransaction);
         destinyAccount.setBalance(destinyAccount.getBalance() + amount);
 
-        transactionRepository.save(debitTransaction);
-        transactionRepository.save(creditTransaction);
+        transactionService.save(debitTransaction);
+        transactionService.save(creditTransaction);
 
-        accountRepository.save(originAccount);
-        accountRepository.save(destinyAccount);
+        accountService.save(originAccount);
+        accountService.save(destinyAccount);
 
         return new ResponseEntity<>("created", HttpStatus.CREATED);
     }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Optional;
@@ -59,53 +60,33 @@ public class ClientServiceImp implements ClientService {
     public Client findByEmail(String email) {
         return clientRepository.findByEmail(email);
     }
-
     @Override
     public void save(Client client) {
         clientRepository.save(client);
     }
-
-    public void register(Client client, String siteURL)
-            throws UnsupportedEncodingException, MessagingException {
-        String encodedPassword = passwordEncoder.encode(client.getPassword());
-        client.setPassword(encodedPassword);
-
-        String randomCode = RandomString.make(64);
-        client.setVerificationCode(randomCode);
-        client.setEnabled(false);
-
-        clientRepository.save(client);
-
-        sendVerificationEmail(client, siteURL);
-    }
-
-    private void sendVerificationEmail(Client client, String siteURL)
-            throws MessagingException, UnsupportedEncodingException {
-        String toAddress = client.getEmail();
-        String fromAddress = "Your email address";
-        String senderName = "Your company name";
+    @Override
+    public void sendVerificationEmail(Client client, String siteURL) throws MessagingException, UnsupportedEncodingException{
         String subject = "Please verify your registration";
-        String content = "Dear [[name]],<br>"
-                + "Please click the link below to verify your registration:<br>"
-                + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>"
-                + "Thank you,<br>"
-                + "Your company name.";
+        String senderName = "Space Bank";
+        String mailContent = "<p>Dear " + client.getFirstName() + ",</p>";
+        mailContent += "<p>Please click the link below to verify your registration: </p>";
+        mailContent += "<p>Thank you <br> Space Bank Team</p>";
+
+        String verifyURL = siteURL + "/verify?code=" + client.getVerificationCode();
+        mailContent += "<a = \"href =" + siteURL + "\">VERIFY</a>";
 
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
-        helper.setFrom(fromAddress, senderName);
-        helper.setTo(toAddress);
+        helper.setFrom("lucividal09@gmail.com", senderName);
+        helper.setTo(client.getEmail());
         helper.setSubject(subject);
-
-        content = content.replace("[[name]]", client.getFirstName() + " " + client.getLastName());
-        String verifyURL = siteURL + "/verify?code=" + client.getVerificationCode();
-
-        content = content.replace("[[URL]]", verifyURL);
-
-        helper.setText(content, true);
-
+        helper.setText(mailContent, true);
         mailSender.send(message);
+    }
 
+    public void createClient(Client client, HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
+        String siteURL = request.getRequestURL().toString();
+        sendVerificationEmail(client, siteURL);
     }
 }

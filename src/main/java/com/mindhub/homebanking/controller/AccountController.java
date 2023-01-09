@@ -6,6 +6,8 @@ import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
+import com.mindhub.homebanking.services.AccountService;
+import com.mindhub.homebanking.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
@@ -32,32 +34,25 @@ import static java.util.stream.Collectors.toList;
 public class AccountController {
 
     @Autowired
-    private AccountRepository accountRepository;
+    AccountService accountService;
 
     @Autowired
-    private ClientRepository clientRepository;
+    private ClientService clientService;
 
     @RequestMapping("/accounts/{id}")
     public AccountDTO getAccount(@PathVariable Long id) {
-        return accountRepository
-                .findById(id)
-                .map(AccountDTO::new)
-                .orElse(null);
+       return accountService.getAccountDTO(accountService.getAccount(id));
     }
     @RequestMapping("/accounts")
     public List<AccountDTO> getAccounts() {
-        return accountRepository
-                .findAll()
-                .stream()
-                .map(AccountDTO::new)
-                .collect(toList());
+        return accountService.getAccountsDTO(accountService.getAccounts());
     }
 
     public String getRandomNumber(int min, int max) {
         Random random = new Random();
         String number = "VIN" + random.nextInt(max - min) + min;
         String finalNumber = number;
-        Set<String> accountsNumbers = accountRepository.findAll().stream().map(account -> account.getNumber())
+        Set<String> accountsNumbers =   accountService.getAccounts().stream().map(account -> account.getNumber())
                 .filter(accountNumber -> accountNumber == finalNumber).collect(Collectors.toSet());
         if(accountsNumbers.size() > 0) {
             number = getRandomNumber(0000, 9999);
@@ -68,15 +63,15 @@ public class AccountController {
 
     @RequestMapping(path = "/clients/current/accounts", method = RequestMethod.POST)
     public ResponseEntity<Object> register(Authentication authentication) {
-        Client client = clientRepository.findByEmail(authentication.getName());
+        Client client = clientService.findByEmail(authentication.getName());
         if (client.getAccounts().size() > 2) {
             return new ResponseEntity<>("Accounts limit exceeded", HttpStatus.FORBIDDEN);
         }
         String accountNumber = getRandomNumber(0000,9999);
         Account account = new Account(accountNumber, LocalDateTime.now(), 0.00);
-        accountRepository.save(account);
+        accountService.save(account);
         client.addAccount(account);
-        clientRepository.save(client);
+        clientService.save(client);
         return new ResponseEntity<>("created ",HttpStatus.CREATED);
     }
 

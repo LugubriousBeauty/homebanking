@@ -152,9 +152,9 @@
                         <!-- Card stats -->
                         <div class="row g-6 mb-6 mt-2 justify-content-center m-xxl-4">
                             <div v-if="accounts.length < 3" class="d-flex justify-content-center justify-content-md-start mt-2">
-                                <button class="btn btn-primary" @click="createAccount">Create account <i class="bi bi-person-fill-add h-50" ></i></button>
+                                <button class="btn btn-primary" @click="createAccount" style="background-color: rgb(136, 99, 170, 0.637); border: none;">Create account <i class="bi bi-person-fill-add h-50" ></i></button>
                             </div>
-                            <div class="col-xl-4 col-sm-8 col-12" v-for="account of accounts">
+                            <div class="col-xl-4  col-sm-8 col-12" v-for="account of accounts">
                                 <div class="card shadow border-0" style="background-color: transparent !important;">
                                     <div data-aos="zoom-in"></div>
                                     <div class="card-body cardbg">

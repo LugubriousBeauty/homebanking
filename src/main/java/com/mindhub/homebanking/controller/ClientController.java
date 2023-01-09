@@ -6,12 +6,16 @@ import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.services.ClientService;
+import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -30,21 +34,11 @@ import static java.util.stream.Collectors.toList;
 public class ClientController {
     @Autowired
     AccountRepository accountRepository;
-
     @Autowired
     ClientService clientService;
+    @Autowired
+    JavaMailSender mailSender;
 
-    @PostMapping("/process_register")
-    public String processRegister(Client client, HttpServletRequest request)
-            throws UnsupportedEncodingException, MessagingException {
-        clientService.register(client, getSiteURL(request));
-        return "register_success";
-    }
-
-    private String getSiteURL(HttpServletRequest request) {
-        String siteURL = request.getRequestURL().toString();
-        return siteURL.replace(request.getServletPath(), "");
-    }
 
     @RequestMapping("/clients/{id}")
     public ClientDTO getClient(@PathVariable Long id) {
@@ -74,7 +68,7 @@ public class ClientController {
     @RequestMapping(path = "/clients", method = RequestMethod.POST)
     public ResponseEntity<Object> register(
             @RequestParam String firstName, @RequestParam String lastName,
-            @RequestParam String email, @RequestParam String password) {
+            @RequestParam String email, @RequestParam String password, HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
 
         if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty()) {
             return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
@@ -87,6 +81,9 @@ public class ClientController {
         String accountNumber = getRandomNumber(0000,9999);
         Account account = new Account(accountNumber, LocalDateTime.now(), 0.00);
         Client client = new Client(firstName, lastName, email, passwordEncoder.encode(password));
+        String randomCode = RandomString.make(64);
+        client.setVerificationCode(randomCode);
+        client.setEnabled(false);
         accountRepository.save(account);
         client.addAccount(account);
         clientService.save(client);
@@ -97,4 +94,5 @@ public class ClientController {
     public ClientDTO getCurrent(Authentication authentication) {
         return new ClientDTO(clientService.findByEmail(authentication.getName()));
     }
+
 }

@@ -4,6 +4,9 @@ import com.mindhub.homebanking.dtos.LoanApplicationDTO;
 import com.mindhub.homebanking.dtos.LoanDTO;
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repositories.*;
+import com.mindhub.homebanking.services.AccountService;
+import com.mindhub.homebanking.services.ClientService;
+import com.mindhub.homebanking.services.LoanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,21 +28,17 @@ public class LoanController {
     @Autowired
     ClientLoanRepository clientLoanRepository;
     @Autowired
-    LoanRepository loanRepository;
+    ClientService clientService;
     @Autowired
-    AccountRepository accountRepository;
-    @Autowired
-    ClientRepository clientRepository;
+    LoanService loanService;
     @Autowired
     TransactionRepository transactionRepository;
+    @Autowired
+    AccountService accountService;
 
     @RequestMapping("/loans")
     public List<LoanDTO> getLoans() {
-        return loanRepository
-                .findAll()
-                .stream()
-                .map(LoanDTO :: new)
-                .collect(Collectors.toList());
+        return loanService.getLoansDTO(loanService.getLoans());
     }
 
     @Transactional
@@ -49,35 +48,35 @@ public class LoanController {
         if(clientLoan.getAmount() <= 0 || clientLoan.getPayments() == 0 || clientLoan.getDestinyAccountNumber() == null) {
             return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
         }
-        if(loanRepository.findById(clientLoan.getId()) == null) {
+        if(loanService.getLoan(clientLoan.getId()) == null) {
             return new ResponseEntity<>("Loan doesn't exist", HttpStatus.FORBIDDEN);
         }
-        Loan loan = loanRepository.findById(clientLoan.getId()).get();
+        Loan loan = loanService.getLoan(clientLoan.getId());
         if(clientLoan.getAmount() > loan.getMaxAmount()) {
             return new ResponseEntity<>("Loan max amount exceeded", HttpStatus.FORBIDDEN);
         }
         if(!loan.getPayments().contains(clientLoan.getPayments())) {
             return new ResponseEntity<>("Payments number not valid", HttpStatus.FORBIDDEN);
         }
-        Account account = accountRepository.findByNumber(clientLoan.getDestinyAccountNumber());
+        Account account = accountService.findByNumber(clientLoan.getDestinyAccountNumber());
         if(account == null) {
             return new ResponseEntity<>("Destiny account not found", HttpStatus.FORBIDDEN);
         }
-        Client client = clientRepository.findByEmail(auth.getName());
+        Client client = clientService.findByEmail(auth.getName());
         if(!client.getAccounts().contains(account)) {
             return new ResponseEntity<>("Account does not belong to the authenticated client", HttpStatus.FORBIDDEN);
         }
         ClientLoan newClientLoan = new ClientLoan(clientLoan.getAmount() + clientLoan.getAmount()*0.2, clientLoan.getPayments(), LocalDateTime.now());
         loan.addClientLoan(newClientLoan);
-        loanRepository.save(loan);
+        loanService.save(loan);
         clientLoanRepository.save(newClientLoan);
         Transaction transaction = new Transaction(TransactionType.CREDIT, clientLoan.getAmount(), loan.getName(), LocalDateTime.now());
         transactionRepository.save(transaction);
         client.addClientLoan(newClientLoan);
         account.addTransaction(transaction);
         account.setBalance(account.getBalance() + clientLoan.getAmount());
-        accountRepository.save(account);
-        clientRepository.save(client);
+        accountService.save(account);
+        clientService.save(client);
         return new ResponseEntity<>("Created", HttpStatus.CREATED);
 
     }
