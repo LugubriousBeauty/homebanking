@@ -27,6 +27,7 @@ dependencies {
 	implementation 'de.vinado.boot:mail-extensions-dkim-javamail-spring-boot-starter:2.0.0'
 	implementation 'de.vinado.boot:spring-boot-dkim-javamail:1.2.2'
 	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'

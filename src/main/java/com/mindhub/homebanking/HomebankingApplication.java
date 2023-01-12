@@ -29,7 +29,7 @@ public class HomebankingApplication {
 									  TransactionRepository transactionRepository, LoanRepository loanRepository,
 									  ClientLoanRepository clientLoanRepository, CardRepository cardRepository) {
 		return (args) -> {
-			Client lucia = new Client("Lucia", "Vidal", "lucividal09@gmail.com", passwordEncoder.encode("lucia"));
+/*			Client lucia = new Client("Lucia", "Vidal", "lucividal09@gmail.com", passwordEncoder.encode("lucia"));
 			Client admin = new Client("admin", "admin", "admin@admin.com", passwordEncoder.encode("lucia"));
 			Client dante = new Client("Dante", "Vilches", "dantevilches@gmail.com", passwordEncoder.encode("fh36q8"));
 			Account account1 = new Account("VIN001", LocalDateTime.now(), 5000.00);
@@ -62,17 +62,17 @@ public class HomebankingApplication {
 			lucia.addAccount(account1);
 			lucia.addAccount(account2);
 			dante.addAccount(account3);
-			dante.addAccount(account4);
+			dante.addAccount(account4);*/
 
-			List<Integer> payments1 = Arrays.asList(12,24,36,48,60);
+			/*List<Integer> payments1 = Arrays.asList(12,24,36,48,60);
 			List<Integer> payments2 = Arrays.asList(6,12,24);
 			List<Integer> payments3 = Arrays.asList(6,12,24,36);
 
 			Loan loan1 = new Loan("Mortgage", 500000.00, payments1);
 			Loan loan2 = new Loan("Personal", 500000.00, payments2);
-			Loan loan3= new Loan("Car loan", 500000.00, payments3);
+			Loan loan3= new Loan("Car loan", 500000.00, payments3);*/
 
-			ClientLoan clientLoan1 = new ClientLoan(400000.00, payments1.get(4), LocalDateTime.now());
+			/*ClientLoan clientLoan1 = new ClientLoan(400000.00, payments1.get(4), LocalDateTime.now());
 
 			loan1.addClientLoan(clientLoan1);
 			lucia.addClientLoan(clientLoan1);
@@ -84,13 +84,13 @@ public class HomebankingApplication {
 
 			clientRepository.save(lucia);
 			clientRepository.save(dante);
-			clientRepository.save(admin);
+			clientRepository.save(admin);*/
 
-			loanRepository.save(loan1);
+			/*loanRepository.save(loan1);
 			loanRepository.save(loan2);
 			loanRepository.save(loan3);
-
-			clientLoanRepository.save(clientLoan1);
+*/
+			/*clientLoanRepository.save(clientLoan1);
 
 			accountRepository.save(account1);
 			accountRepository.save(account2);
@@ -108,7 +108,7 @@ public class HomebankingApplication {
 
 			cardRepository.save(card1);
 			cardRepository.save(card2);
-			cardRepository.save(card3);
+			cardRepository.save(card3);*/
 
 		};
 	}

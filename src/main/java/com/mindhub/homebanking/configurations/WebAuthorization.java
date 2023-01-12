@@ -29,10 +29,12 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/clients/current/transactions").hasRole("CLIENT")
                 .antMatchers(HttpMethod.POST, "/clients/current/loans").hasRole("CLIENT")
                 .antMatchers(HttpMethod.PUT, "/clients/**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.PATCH, "/clients/**").hasRole("ADMIN");
+                .antMatchers(HttpMethod.PATCH, "/clients/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/confirm-account").permitAll()
+                .antMatchers(HttpMethod.POST,"/confirm-account").permitAll();
 
         http.authorizeRequests()
-                .antMatchers( "/web/js/**", "/web/assets/**","/web/styles/**", "/web/index.html").permitAll()
+                .antMatchers( "/web/js/**", "/web/assets/**","/web/styles/**", "/web/index.html", "/web/confirm-account.html").permitAll()
                 .antMatchers("/rest/**", "/h2-console/**").hasAuthority("ADMIN")
                 .antMatchers("/web/accounts.html", "/web/account.html", "/api/clients/{id}").hasAuthority("CLIENT");
 

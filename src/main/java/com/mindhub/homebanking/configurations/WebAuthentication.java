@@ -31,6 +31,9 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
         auth.userDetailsService(inputName -> {
             Client client = clientRepository.findByEmail(inputName);
             if (client != null) {
+                if(!client.isEnabled()) {
+                    throw new UsernameNotFoundException("User not enabled. Please activate account");
+                }
                 String authority = "CLIENT";
                 if (client.getEmail().equals("admin@admin.com")) authority = "ADMIN";
 
